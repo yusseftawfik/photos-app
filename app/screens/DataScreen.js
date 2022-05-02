@@ -29,7 +29,7 @@ const DataScreen = ({ data, loading, navigation, getData }) => {
 							<SingleItem key={index} data={item} navigate={navigation} />
 						)}
 						keyExtractor={(item) => item.id}
-						onEndReached={getData(number + 1)}
+						// onEndReached={getData(number + 1)}
 						onEndReachedThreshold={0.5}
 					/>
 				) : null}
