@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { StyleSheet, Platform, FlatList, SafeAreaView } from "react-native";
 import LottieView from "lottie-react-native";
 import { connect } from "react-redux";
@@ -27,7 +27,7 @@ const DataScreen = ({ loading, data, error, navigation }) => {
 						onEndReached={() => alert('should retrive more from api')}
 						onEndReachedThreshold={.1}
 					/>
-				) : error ? <SafeAreaView>{error}</SafeAreaView> : null}
+				) : null}
 			</SafeAreaView>
 		</>
 	);
@@ -36,7 +36,6 @@ const mapStateToProps = (state) => {
 	return {
 		data: state.city.data,
 		loading: state.city.loading,
-		error: state.city.error,
 	};
 };
 export default connect(mapStateToProps)(DataScreen);

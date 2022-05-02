@@ -1,7 +1,6 @@
 import React from "react";
 import { Provider as ReduxProvider } from "react-redux";
 import store from "./app/Redux/Store";
-// import Root from "./app/Root";
 import { StatusBar } from "expo-status-bar";
 import { Button } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -16,7 +15,6 @@ const App = () => {
   return (
     <>
       <ReduxProvider store={store}>
-        {/* <Root /> */}
         <NavigationContainer>
           <StatusBar hidden />
           <Stack.Navigator
