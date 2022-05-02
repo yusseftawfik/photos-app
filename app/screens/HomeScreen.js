@@ -41,18 +41,12 @@ const HomeScreen = ({ navigation, getData }) => {
 		</ImageBackground>
 	);
 };
-const mapStateToProps = (state) => {
-	return {
-		data: state.city.data,
-		loading: state.city.loading,
-	};
-};
 const mapDispatchToProps = (dispatch) => {
 	return {
 		getData: (num) => dispatch(getData(num)),
 	};
 };
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+export default connect(null, mapDispatchToProps)(HomeScreen);
 
 const styles = StyleSheet.create({
 	container: {

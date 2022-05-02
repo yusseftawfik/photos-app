@@ -4,12 +4,9 @@ import Reducer from './Reducer';
 import saga from "./rootSaga";
 
 const sagaMiddleware = createSagaMiddleware()
-
 const store = configureStore({
 	reducer: { city: Reducer },
 	middleware: [sagaMiddleware],
 });
-
 sagaMiddleware.run(saga);
-
 export default store;

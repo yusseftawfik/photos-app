@@ -2,14 +2,9 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Platform, FlatList, SafeAreaView } from "react-native";
 import LottieView from "lottie-react-native";
 import { connect } from "react-redux";
-import { getData } from "../Redux/Action";
 import SingleItem from "../Components/SingleItem";
 
-const DataScreen = ({ data, loading, navigation, getData }) => {
-	const [number, setNumber] = useState(data ? data.length : 0);
-	useEffect(() => {
-		getData();
-	}, []);
+const DataScreen = ({ loading, data, error, navigation }) => {
 	return (
 		<>
 			<SafeAreaView style={styles.container}>
@@ -29,10 +24,10 @@ const DataScreen = ({ data, loading, navigation, getData }) => {
 							<SingleItem key={index} data={item} navigate={navigation} />
 						)}
 						keyExtractor={(item) => item.id}
-						// onEndReached={getData(number + 1)}
-						onEndReachedThreshold={0.5}
+						onEndReached={() => alert('should retrive more from api')}
+						onEndReachedThreshold={.1}
 					/>
-				) : null}
+				) : error ? <SafeAreaView>{error}</SafeAreaView> : null}
 			</SafeAreaView>
 		</>
 	);
@@ -41,14 +36,10 @@ const mapStateToProps = (state) => {
 	return {
 		data: state.city.data,
 		loading: state.city.loading,
+		error: state.city.error,
 	};
 };
-const mapDispatchToProps = (dispatch) => {
-	return {
-		getData: (num) => dispatch(getData(num)),
-	};
-};
-export default connect(mapStateToProps, mapDispatchToProps)(DataScreen);
+export default connect(mapStateToProps)(DataScreen);
 
 const styles = StyleSheet.create({
 	container: {

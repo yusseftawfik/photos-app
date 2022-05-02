@@ -16,7 +16,7 @@ function* fetchAllData (action) {
 	const numOfItems = action.num
 	const allData = yield fetch(`https://wft-geo-db.p.rapidapi.com/v1/geo/cities?offset=539725&limit=${numOfItems}`, options)
 		.then(response => response.json())
-		.catch(err => err);
+		.catch(err => console.log(err));
 	yield put({
 		type: actionTypes.DATA_FETCH_SUCCEEDED, data: allData.data
 	});
@@ -25,7 +25,7 @@ function* fetchSpecificData (action) {
 	const id = action.id
 	const dataByID = yield fetch(`https://wft-geo-db.p.rapidapi.com/v1/geo/cities/${id}`, options)
 		.then(response => response.json())
-		.catch(err => err);
+		.catch(err => console.log(err));
 	yield put({
 		type: actionTypes.SPECIFIC_DATA_SUCCEEDED, specificData: dataByID.data
 	});

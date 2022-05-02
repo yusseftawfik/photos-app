@@ -1,6 +1,6 @@
 import * as  actionTypes from './Types';
 
-export const getData = (num = 5) => {
+export const getData = (num = 10) => {
 	return {
 		type: actionTypes.DATA_FETCH_REQUESTED,
 		num: num
