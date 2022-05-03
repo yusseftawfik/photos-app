@@ -45,7 +45,7 @@ const App = () => {
             <Stack.Screen
               name="Data"
               options={{
-                title: "Choose a city",
+                title: "",
               }}
               component={DataScreen}
             />

@@ -1,6 +1,6 @@
 import React from "react";
-import { Card, Title, Paragraph } from "react-native-paper";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, Image } from "react-native";
+import { TouchableOpacity } from "react-native-web";
 import { connect } from "react-redux";
 import { getDataByID } from "../Redux/Action";
 
@@ -9,32 +9,28 @@ const SingleItem = ({ data, navigate, getDataByID }) => {
 		getDataByID(id);
 		navigate.navigate("Details", { itemID: id });
 	};
+	let photo = data.item.previewURL;
 	return (
-		<Card style={styles.card}>
-			<Card.Content>
-				<Title
-					style={{ textAlign: "center", fontWeight: "600", color: "#fff" }}
-				>
-					{data.item.name}
-				</Title>
-				<Paragraph
-					style={{ textAlign: "center", fontWeight: "400", color: "#fff" }}
-				>
-					Country: {data.item.country}
-				</Paragraph>
-				<Paragraph
-					style={{ textAlign: "center", fontWeight: "200", color: "#fff" }}
-				>
-					Region: {data.item.region}
-				</Paragraph>
-				<TouchableOpacity
-					style={styles.button}
-					onPress={() => handleClick(data.item.wikiDataId)}
-				>
-					<Text style={styles.btnText}>DETAILS</Text>
-				</TouchableOpacity>
-			</Card.Content>
-		</Card>
+		<>
+			{data && (
+				<View>
+					<TouchableOpacity
+						style={styles.card}
+						onPress={() => handleClick(data.item.id)}
+					>
+						<Image
+							style={{ width: 130, height: 100 }}
+							source={{ uri: photo }}
+						/>
+						<View style={styles.data}>
+							<Text style={{ fontWeight: "900", color: "#d31336", margin: 10 }}>
+								likes: {data.item.likes}
+							</Text>
+						</View>
+					</TouchableOpacity>
+				</View>
+			)}
+		</>
 	);
 };
 const mapDispatchToProps = (dispatch) => {
@@ -46,8 +42,9 @@ export default connect(null, mapDispatchToProps)(SingleItem);
 
 const styles = StyleSheet.create({
 	card: {
-		margin: 10,
-		backgroundColor: "rgba(17, 25, 40, 0.75)",
+		width: 130,
+		height: 130,
+		backgroundColor: "#000",
 		color: "#fff",
 		display: "flex",
 		flexDirection: "column",
@@ -55,6 +52,12 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		borderColor: "rgba(255, 255, 255, 0.125)",
 		borderWidth: 1,
+	},
+	data: {
+		display: "flex",
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "space-evenly",
 	},
 	button: {
 		backgroundColor: "transparent",

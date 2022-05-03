@@ -18,13 +18,13 @@ const HomeScreen = ({ navigation, getData }) => {
 	};
 	return (
 		<ImageBackground
-			source={require("../assets/App.jpg")}
+			source={require("../assets/App.jpeg")}
 			blurRadius={4}
 			resizeMode="cover"
 			style={styles.container}
 		>
 			<View style={styles.mainHeader}>
-				<Text style={styles.mainTxt}>Explore The World</Text>
+				<Text style={styles.mainTxt}>Say it in pictures 📸</Text>
 				{Platform.OS != "web" ? (
 					<LottieView
 						autoPlay
@@ -35,7 +35,7 @@ const HomeScreen = ({ navigation, getData }) => {
 				) : null}
 			</View>
 			<TouchableOpacity style={styles.button} onPress={handleClick}>
-				<Text style={styles.btnText}>Start Your Tour</Text>
+				<Text style={styles.btnText}>Start Your Tour</Text> 
 			</TouchableOpacity>
 			<Text style={styles.subTxt}>No limits ∞</Text>
 		</ImageBackground>
