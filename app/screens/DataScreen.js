@@ -6,12 +6,14 @@ import { getData } from "../Redux/Action";
 import SingleItem from "../Components/SingleItem";
 
 const DataScreen = ({ getData, loading, data, navigation }) => {
-	// const [number] = useState(data ? data.length : 0)
-	// const [photos] = useState(data ? data : null)
-
-	// const fetchMore = () => {
-	// 	getData((number + 10))
-	// }
+	const [number, setNumber] = useState(21)
+	useEffect(() => {
+		fetchMore
+	})
+	const fetchMore = () => {
+		setNumber(prevState => prevState + 3)
+		getData(number)
+	}
 	return (
 		<>
 			<SafeAreaView style={styles.container}>
@@ -26,14 +28,14 @@ const DataScreen = ({ getData, loading, data, navigation }) => {
 				) : data ? (
 					<FlatList
 						style={{ flex: 1 }}
-							data={data}
+						data={data}
 						renderItem={(item, index) => (
 							<SingleItem key={index} data={item} navigate={navigation} />
 						)}
 						keyExtractor={(item) => item.id}
 						numColumns={3}
-						// onEndReached={() => fetchMore()}
-						onEndReachedThreshold={.1}
+						onEndReached={() => fetchMore()}
+						onEndReachedThreshold={0.1}
 					/>
 				) : null}
 			</SafeAreaView>

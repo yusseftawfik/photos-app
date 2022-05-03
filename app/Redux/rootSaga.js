@@ -1,4 +1,4 @@
-import { all, call, put, takeEvery, takeLatest } from "redux-saga/effects";
+import { all, put, takeLatest } from "redux-saga/effects";
 import * as actionTypes from './Types';
 
 const API_KEY = '27142263-84571abe3b0315c24dd5f2bf3';
