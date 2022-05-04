@@ -6,14 +6,21 @@ import { getData } from "../Redux/Action";
 import SingleItem from "../Components/SingleItem";
 
 const DataScreen = ({ getData, loading, data, navigation }) => {
-	const [number, setNumber] = useState(21)
-	useEffect(() => {
-		fetchMore
-	})
+	let newPhotos;
+	let oldPhotos;
+	let renderItems; // to render only new items and prevent page reload
+
+	const [photos, setPhotos] = useState(null);
+	const [number, setNumber] = useState(21);
+
+	setTimeout(() => {
+		setPhotos(data);
+	}, 1000);
+
 	const fetchMore = () => {
-		setNumber(prevState => prevState + 3)
-		getData(number)
-	}
+		setNumber((prevState) => prevState + 3);
+		getData(number);
+	};
 	return (
 		<>
 			<SafeAreaView style={styles.container}>
@@ -25,18 +32,27 @@ const DataScreen = ({ getData, loading, data, navigation }) => {
 							source={require("../lottie/loading.json")}
 						></LottieView>
 					) : null
-				) : data ? (
-					<FlatList
-						style={{ flex: 1 }}
-						data={data}
-						renderItem={(item, index) => (
-							<SingleItem key={index} data={item} navigate={navigation} />
-						)}
-						keyExtractor={(item) => item.id}
-						numColumns={3}
-						onEndReached={() => fetchMore()}
-						onEndReachedThreshold={0.1}
-					/>
+				) : data && photos ? (
+					((newPhotos = data.map((photo) => photo.id)),
+						(oldPhotos = photos.map((pho) => pho.id)),
+						(renderItems = newPhotos.filter(
+							(toRender) => oldPhotos.indexOf(toRender) === -1
+						)),
+						(
+							<FlatList
+								style={{ flex: 1 }}
+								data={photos}
+								renderItem={(item, index) =>
+									renderItems.indexOf(item.id) === -1 ? (
+										<SingleItem key={index} data={item} navigate={navigation} />
+									) : null
+								}
+								keyExtractor={(item) => item.id}
+								numColumns={3}
+								onEndReached={() => fetchMore()}
+								onEndReachedThreshold={0.01}
+							/>
+						))
 				) : null}
 			</SafeAreaView>
 		</>

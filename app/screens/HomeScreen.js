@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { getData } from "../Redux/Action";
 import {
@@ -8,6 +8,7 @@ import {
 	Text,
 	View,
 	TouchableOpacity,
+	Animated
 } from "react-native";
 import LottieView from "lottie-react-native";
 
@@ -16,6 +17,18 @@ const HomeScreen = ({ navigation, getData }) => {
 		getData();
 		navigation.navigate("Data");
 	};
+
+	const progress = useRef(new Animated.Value(0)).current;
+	const handleLikeAnimation = () => {
+		Animated.timing(progress, {
+			toValue: 1,
+			duration: 10000,
+			useNativeDriver: true,
+		}).start();
+	};
+	useEffect(() => {
+		handleLikeAnimation();
+	}, []);
 	return (
 		<ImageBackground
 			source={require("../assets/App.jpeg")}
@@ -24,18 +37,17 @@ const HomeScreen = ({ navigation, getData }) => {
 			style={styles.container}
 		>
 			<View style={styles.mainHeader}>
-				<Text style={styles.mainTxt}>Say it in pictures 📸</Text>
+				<Text style={styles.mainTxt}>Say it in pictures...</Text>
 				{Platform.OS != "web" ? (
 					<LottieView
-						autoPlay
-						loop
+						style={styles.emoje}
+						progress={progress}
 						source={require("../lottie/95644-infinite.json")}
-						style={styles.worldEmj}
 					></LottieView>
 				) : null}
 			</View>
 			<TouchableOpacity style={styles.button} onPress={handleClick}>
-				<Text style={styles.btnText}>Start Your Tour</Text> 
+				<Text style={styles.btnText}>Start Your Tour</Text>
 			</TouchableOpacity>
 			<Text style={styles.subTxt}>No limits ∞</Text>
 		</ImageBackground>
@@ -59,7 +71,7 @@ const styles = StyleSheet.create({
 	},
 	mainHeader: {
 		display: "flex",
-		flexDirection: "row",
+		flexDirection: "column",
 		alignItems: "center",
 		justifyContent: "center",
 	},
@@ -71,9 +83,9 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 	},
-	worldEmj: {
-		width: 50,
-		height: 50,
+	emoje: {
+		width: 150,
+		height: 150,
 	},
 	subTxt: {
 		color: "#fff",

@@ -1,8 +1,8 @@
 import * as actionTypes from "./Types";
 const INITIAL_STATE = {
 	loading: null,
-	data: null,
-	specificData: null,
+	data: [],
+	specificData: {},
 };
 const Reducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {

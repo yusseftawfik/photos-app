@@ -31,6 +31,7 @@ const App = () => {
             <Stack.Screen
               name="Home"
               options={{
+                headerShown: false,
                 title: "",
                 headerRight: () => (
                   <Button
