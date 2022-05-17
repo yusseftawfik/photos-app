@@ -15,7 +15,7 @@ const DataScreen = ({ getData, loading, data, navigation }) => {
 
 	setTimeout(() => {
 		setPhotos(data);
-	}, 1000);
+	}, 10);
 
 	const fetchMore = () => {
 		setNumber((prevState) => prevState + 3);
